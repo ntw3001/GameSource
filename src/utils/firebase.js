@@ -1,10 +1,11 @@
 import { initializeApp } from 'firebase/app';
 import { getfirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { apiKey } from '@main.js';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDget2Wje5hdt7D7Dh9v93l1bxOPjNEcfQ",
+  apiKey: process.env.VITE_FIREBASE_API_KEY,
   authDomain: "gamesource-2857e.firebaseapp.com",
   projectId: "gamesource-2857e",
   storageBucket: "gamesource-2857e.appspot.com",
