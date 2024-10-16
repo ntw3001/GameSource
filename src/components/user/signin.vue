@@ -69,6 +69,9 @@ import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
 import { ref } from 'vue';
 
+import { useUserStore } from '@/stores/user';
+const userStore = useUserStore();
+
 const type = ref(false);
 const formSchema = yup.object({
   email: yup.string().email("Obviously that's not an email").required("Gotta give us an email friend"),
@@ -76,8 +79,8 @@ const formSchema = yup.object({
 });
 
 function onSubmit(values, { resetForm }) {
-  console.log(values);
-  resetForm();
+  // useUserStore.register(values);
+  // resetForm();
 }
 
 </script>
