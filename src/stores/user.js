@@ -27,6 +27,37 @@ export const useUserStore = defineStore('user',{
       this.user = {...this.user, ...user},
       this.auth=true
     },
+
+    async getUserProfile(uid){
+      try{
+        const userRef = await getDoc(doc(db, "users", uid));
+        if(!userRef.exists()){
+          throw new Error('User not found')
+        }
+        return userRef.data()
+      } catch(error) {
+        throw new Error(error)
+      }
+    },
+
+    async signIn(formData){
+      try{
+        this.loading = true;
+        const response = await signInWithEmailAndPassword(
+          AUTH,
+          formData.email,
+          formData.password
+        );
+        const userData = await this.getUserProfile(response.user.uid)
+        this.setUser(userData);
+        router.push({name: 'dashboard'})
+      } catch(error){
+        throw new Error(error.code)
+      } finally {
+        this.loading = false
+      }
+    },
+
     async register(formData){
       try{
         this.loading = true;
@@ -41,9 +72,7 @@ export const useUserStore = defineStore('user',{
           isAdmin: false
         }
         await setDoc (doc(db, 'users', response.user.uid), newUser)
-
         this.setUser(newUser)
-
         router.push({name: 'dashboard'})
       } catch(error){
         throw new Error(error.code)
