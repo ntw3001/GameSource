@@ -73,6 +73,9 @@ import { Field, Form } from 'vee-validate';
 import * as yup from 'yup';
 import { ref } from 'vue';
 
+import { useToast } from 'vue-toast-notification';
+const $toast = useToast();
+
 import { useUserStore } from '@/stores/user';
 const userStore = useUserStore();
 
@@ -91,5 +94,17 @@ function onSubmit(values, { resetForm }) {
     resetForm();
  }
 }
+
+userStore.$onAction(({name, after, onError}) => {
+  if(name === 'register' || name === 'signIn') {
+    after(() => {
+      $toast.success("You'll like it here friend");
+    });
+    onError((error) => {
+      console.log(error);
+      $toast.error(error.message);
+    });
+  }
+})
 
 </script>
