@@ -1,22 +1,14 @@
 const errorCodes = (code) => {
-  let msg = "Come back another time"
-  
+  console.log('Received code:', code);
   switch (code) {
-    case 'auth/invalid-email':
-      return 'Invalid email address format';
-    case 'auth/user-disabled':
-      return 'User account disabled';
-    case 'auth/user-not-found':
-      return 'User not found';
-    case 'auth/wrong-password':
-      return 'Invalid email or password';
-    case 'auth/email-already-in-use':
-      return 'Email already in use';
-    case 'auth/weak-password':
-      return 'Password is too weak';
-    default:
-      return code;
-  }
-}
+    case "auth/too-many-requests" : return "Too many requests. Try again later.";
+    case "auth/invalid-email" : return "That wasn't an email";
+    case "auth/email-already-in-use" : return "Email already in use.";
+    case "auth/user-not-found" : return "User not found.";
+    case "auth/invalid-credential" : return "Invalid credential.";
+  };
+
+  return code || 'An unknown error occurred';
+};
 
 export default errorCodes;

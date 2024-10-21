@@ -101,7 +101,6 @@ userStore.$onAction(({name, after, onError}) => {
       $toast.success("You'll like it here friend");
     });
     onError((error) => {
-      console.log(error);
       $toast.error(error.message);
     });
   }
