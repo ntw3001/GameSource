@@ -26,7 +26,17 @@ export const useUserStore = defineStore('user',{
   actions: {
     setUser(user){
       this.user = {...this.user, ...user},
-      this.auth=true
+      this.auth = true
+    },
+
+    async autoSignIn(uid){
+      try{
+        const userData = await this.getUserProfile(uid)
+        this.setUser(userData)
+        return true
+      } catch(error){
+        console.log(error)
+      }
     },
 
     async getUserProfile(uid){
