@@ -29,6 +29,13 @@ export const useUserStore = defineStore('user',{
       this.auth = true
     },
 
+    async signOut(){
+      await signOut (AUTH);
+      this.user = default_user;
+      this.auth = false;
+      router.push({name: 'home'})
+    },
+
     async autoSignIn(uid){
       try{
         const userData = await this.getUserProfile(uid)
