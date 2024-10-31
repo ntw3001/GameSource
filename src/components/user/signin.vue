@@ -25,7 +25,7 @@
             v-if="errors.length !== 0"
             >
               {{ errorMessage }}
-            </div>
+          </div>
         </Field>
       </div>
 
