@@ -2,7 +2,7 @@
 
   <h1>Add Article</h1>
   <hr/>
-  <Form class="mb-5" @submit="onSubmit">
+  <Form class="mb-5" @submit="onSubmit" :validation-schema="ArticleSchema">
     <div class="mb-4">
       <Field name="game" v-slot="{field, errors, errorMessage}">
         <input
@@ -96,6 +96,7 @@
 <script setup>
   import { ref } from 'vue';
   import { Field, Form } from 'vee-validate';
+  import ArticleSchema from './schema.js';
 
   const ratingArray = [0, 1, 2, 3, 4, 5]
 
