@@ -10,7 +10,7 @@ const ArticleSchema = {
   article: yup.string()
     .required('didn\'t your mother teach you to write an excerpt when you submit an article?')
     .min(100, 'Was hoping to see a little more honest exerption here')
-    .max(600, 'Hold off on those strenuous excerptions it/'s too much'),
+    .max(600, 'Hold off on those strenuous excerptions it\'s too much'),
   // editor: yup.string()
   // .required('WHO ARE YOU')
   // .min(5, 'That can\'t possibly be your name'),

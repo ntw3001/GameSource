@@ -58,12 +58,12 @@ header .header_container {
   padding: 30px 0px;
 }
 
-header .header_container .logo { 
+header .header_container .logo {
   flex-grow: 1;
   font-family: 'Bungee Inline', cursive;
   font-size: 30px;
 }
-header .header_container .logo a{ 
+header .header_container .logo a{
   text-decoration: none;
   color:#ffffff;
 }
@@ -121,7 +121,7 @@ footer .logo {
   background-size: cover !important;
   background-repeat: no-repeat !important;
   position: relative;
-  
+
 }
 
 .slide_content {
@@ -389,7 +389,7 @@ padding-bottom: 100px;
   background: #ffffff;
   box-sizing: border-box;
   padding: 20px;
-}    
+}
 
 .md-dialog .md-button {
   color: #607D8B;
@@ -419,16 +419,16 @@ padding-bottom: 100px;
   margin: 20px;
 }
 
-.load_more .button_default { 
+.load_more .button_default {
   font-size: 21px;
   line-height: 33px;
   font-weight: 800;
   background: #2a2a2a;
-}   
+}
 
-.post_delete{ 
+.post_delete{
   color: #F44336;
-  font-weight: 700;  
+  font-weight: 700;
 }
 
 .not_found {
@@ -467,4 +467,22 @@ padding-bottom: 100px;
   margin-right: 5px;
   cursor: pointer;
 
+}
+
+.tiptap-menu-item {
+  background-color:#607D8B;
+  color: white;
+  font-size: 16px;
+  padding: 4px 4px;
+  border: none;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.tiptap-menu-item.is-active {
+  background-color:#611be1;
+  color: white;
+  filter: drop-shadow(0 0 0.1rem #607D8B);
 }
