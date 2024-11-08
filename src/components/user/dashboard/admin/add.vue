@@ -112,6 +112,9 @@
   import { Field, Form } from 'vee-validate';
   import ArticleSchema from './schema.js';
   import WYSIWYG from '@/utils/wysiwyg.vue';
+  import { useArticleStore } from '@/stores/articles.js';
+
+  const articleStore = useArticleStore()
 
   const ratingArray = [0, 1, 2, 3, 4, 5]
 
