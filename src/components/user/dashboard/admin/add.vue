@@ -2,7 +2,15 @@
 
   <h1>Add Article</h1>
   <hr/>
-  <Form class="mb-5" @submit="onSubmit" :validation-schema="ArticleSchema">
+
+  <div class="text-center m-3" v-show="loading">
+    <v-progress-circular
+      indeterminate
+      color="primary"
+    />
+  </div>
+
+  <Form class="mb-5" @submit="onSubmit" :validation-schema="ArticleSchema" v-show="!loading">
     <div class="mb-4">
       <Field name="game" v-slot="{field, errors, errorMessage}">
         <input
@@ -33,12 +41,35 @@
       </Field>
     </div>
 
+
+
+    <div class="mb-4">
+      <WYSIWYG @update="updateEditor" class="mb-0"/>
+      <textarea
+        rows= "5"
+        class="form-control mt-0"
+        placeholder="Sounds swell, tell me all about it compadre"
+        v-model="veditor"
+        @input="updateEditor"
+      ></textarea>
+      <Field name="Editor" v-model="veditor" v-slot="{field, errors, errorMessage}">
+        <input
+          type="hidden"
+          id="veditor"
+          v-bind="field"
+        />
+          <div class="input-alert" v-if="errors.length !== 0">
+            {{ errorMessage }}
+          </div>
+      </Field>
+    </div>
+
     <div class="mb-4">
       <Field name="article" v-slot="{field, errors, errorMessage}">
         <textarea
-          rows="3"
+          rows="1"
           class="form-control"
-          placeholder="Sounds swell, tell me about it compadre"
+          placeholder="That's crazy! Could you give me the elevator pitch friend?"
           v-bind="field"
           :class="{'is-invalid':errors.length !== 0}"
         ></textarea>
@@ -47,8 +78,6 @@
         </div>
       </Field>
     </div>
-
-    <!-- // part 4 -->
 
     <div class="mb-4">
       <Field name="rating" value="Select a rating" v-slot="{field, errors, errorMessage}">
@@ -68,19 +97,7 @@
       </Field>
     </div>
 
-    <div class="mb-4">
-      <WYSIWYG @update="updateEditor"/>
-      <Field name="Editor" v-model="veditor" v-slot="{field, errors, errorMessage}">
-        <input
-          type="hidden"
-          id="veditor"
-          v-bind="field"
-          />
-          <div class="input-alert" v-if="errors.length !== 0">
-            {{ errorMessage }}
-          </div>
-      </Field>
-    </div>
+
 
     <div class="mb-4">
       <Field name="img" v-slot="{field, errors, errorMessage}">
@@ -111,17 +128,31 @@
   import { ref } from 'vue';
   import { Field, Form } from 'vee-validate';
   import ArticleSchema from './schema.js';
-  import WYSIWYG from '@/utils/wysiwyg.vue';
-  import { useArticleStore } from '@/stores/articles.js';
 
+  import WYSIWYG from '@/utils/wysiwyg.vue';
+
+  import { useArticleStore } from '@/stores/articles.js';
   const articleStore = useArticleStore()
 
-  const ratingArray = [0, 1, 2, 3, 4, 5]
+  import { useToast } from 'vue-toast-notification';
+  const $toast = useToast();
 
+  const loading = ref(false)
+  const ratingArray = [0, 1, 2, 3, 4, 5]
   const veditor = ref('')
 
   function onSubmit(values, { resetForm }) {
-    console.log(values);
+    loading.value = true;
+    articleStore.addArticle(values)
+    .then(()=>{
+      $toast.success('Shine Get!')
+    })
+    .catch((error)=>{
+      $toast.error(error.message)
+    })
+    .finally(()=>{
+      loading.value = false;
+    })
   }
 
   function updateEditor(value) {
@@ -129,3 +160,9 @@
   }
 
 </script>
+
+<style>
+.ProseMirror p {
+  margin: 0;
+}
+</style>
