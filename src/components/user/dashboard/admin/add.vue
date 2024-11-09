@@ -45,13 +45,6 @@
 
     <div class="mb-4">
       <WYSIWYG @update="updateEditor" class="mb-0"/>
-      <textarea
-        rows= "5"
-        class="form-control mt-0"
-        placeholder="Sounds swell, tell me all about it compadre"
-        v-model="veditor"
-        @input="updateEditor"
-      ></textarea>
       <Field name="Editor" v-model="veditor" v-slot="{field, errors, errorMessage}">
         <input
           type="hidden"
@@ -65,7 +58,7 @@
     </div>
 
     <div class="mb-4">
-      <Field name="article" v-slot="{field, errors, errorMessage}">
+      <Field name="excerpt" v-slot="{field, errors, errorMessage}">
         <textarea
           rows="1"
           class="form-control"
@@ -162,7 +155,10 @@
 </script>
 
 <style>
-.ProseMirror p {
-  margin: 0;
+.ProseMirror {
+  min-height: 120px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
 }
 </style>
