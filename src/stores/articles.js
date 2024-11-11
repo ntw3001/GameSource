@@ -20,6 +20,17 @@ export const useArticleStore = defineStore ('article', {
     }
   },
   actions: {
+    async getArticleById(id){
+      try{
+        const docRef = await getDoc(doc(db, 'articles', id));
+        if(!docRef.exists()){
+          throw new Error('You\'re being silly, give me a real ambicule')
+        }
+        return docRef.data();
+      } catch (error){
+        router.push({name: '404'})
+      }
+    },
     async addArticle(formData){
       try{
         const user = this.getUserData;

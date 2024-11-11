@@ -44,7 +44,7 @@
 
 
     <div class="mb-4">
-      <WYSIWYG @update="updateEditor" class="mb-0"/>
+      <WYSIWYG @update="updateEditor"/>
       <Field name="Editor" v-model="veditor" v-slot="{field, errors, errorMessage}">
         <input
           type="hidden"
