@@ -136,10 +136,11 @@
   const loading = ref(true)
   const ratingArray = [0, 1, 2, 3, 4, 5]
   const veditor = ref('')
-  const article = ref({});
+  const article = ref({
+  });
 
   function onSubmit(values, { resetForm }) {
-    console.log(values);
+
   }
 
   function updateEditor(value) {
@@ -148,8 +149,7 @@
 
   articleStore.getArticleById(route.params.id)
   .then((response)=>{
-    article.value = {...response};
-    updateEditor(response.editor);
+    article.value = { ...article.value, ...response};
     loading.value = false;
   })
   .catch((error)=>{
