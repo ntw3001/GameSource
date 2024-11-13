@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia';
 import router from '@/router';
 import { useUserStore } from '@/stores/user';
-
+import { useToast } from 'vue-toast-notification';
 import { db } from '@/utils/firebase';
 import { collection, getDoc, doc, setDoc, serverTimestamp, updateDoc, query, orderBy, getDocs, limit, startAfter, deleteDoc } from 'firebase/firestore';
 
+const $toast = useToast();
 let articlesCol = collection(db, 'articles');
 
 export const useArticleStore = defineStore ('article', {
@@ -13,13 +14,20 @@ export const useArticleStore = defineStore ('article', {
     adminArticles: '',
     adminLastVisible: '',
   }),
-  getters: {
-    getUserData() {
-      const userStore = useUserStore();
-      return userStore.user
-    }
-  },
-  actions: {
+  getters: {},
+  actions:{
+    async updateArticle(id, formData){
+      try{
+        const docRef = doc(db, 'articles', id);
+        await updateDoc(docRef, {
+          ...formData
+        });
+        $toast.success('Updated !!')
+        return true;
+      } catch (error){
+        throw new Error(error)
+      }
+    },
     async getArticleById(id){
       try{
         const docRef = await getDoc(doc(db, 'articles', id));

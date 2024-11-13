@@ -45,21 +45,32 @@
 <script setup>
   import { Editor, EditorContent } from '@tiptap/vue-3'
   import StarterKit from '@tiptap/starter-kit'
-  import Placeholder from '@tiptap/extension-placeholder'
+  import { watch } from 'vue';
 
   const emit = defineEmits(['update'])
+  const props = defineProps(['content'])
 
   const editor = new Editor({
     content: '',
     extensions: [
       StarterKit,
-      Placeholder.configure({
-        placeholder: 'Sounds like something that\'s for sure! Give me the scoop compadre',  // your placeholder text
-      }),
     ],
     onUpdate:()=>{
       emit('update', editor.getHTML())
     }
-  })
+  });
+
+  watch(()=> props.content, ()=>{
+      loadContent()
+    }
+  )
+
+  function loadContent(){
+    if(props.content) {
+      editor.commands.setContent(props.content)
+    }
+  }
+
+  loadContent();
 
 </script>
