@@ -9,12 +9,12 @@ const ArticleSchema = {
     .max(70, 'No, that\'s too long'),
   excerpt: yup.string()
     .required('didn\'t your mother teach you to write an excerpt when you submit an article?')
-    .min(40, 'Was hoping to see a little more honest exerption here')
-    .max(600, 'Hold off on those strenuous excerptions it\'s too much'),
-  // editor: yup.string()
-  // .required('WHO ARE YOU')
-  // .min(5, 'That can\'t possibly be your name'),
-  // .max(30, 'That\'s a long name you have there'),
+    .min(20, 'Was hoping to see a little more honest exerption here')
+    .max(100, 'Hold off on those strenuous excerptions it\'s too much'),
+  editor: yup.string()
+    .required('What is this game though')
+    .min(50, 'That can\'t possibly be all there is')
+    .max(500, 'You\'re blabbering, try to kep it concise'),
   rating: yup.number()
     .required('Rate it as well please')
     .notOneOf(['Select a rating'], 'You have to pick one of the ratings I\'m offering you'),

@@ -45,7 +45,7 @@
 
     <div class="mb-4">
       <WYSIWYG @update="updateEditor"/>
-      <Field name="Editor" v-model="veditor" v-slot="{field, errors, errorMessage}">
+      <Field name="editor" v-model="veditor" v-slot="{field, errors, errorMessage}">
         <input
           type="hidden"
           id="veditor"
@@ -150,6 +150,7 @@
 
   function updateEditor(value) {
     veditor.value = value
+    console.log(veditor.value)
   }
 
 </script>

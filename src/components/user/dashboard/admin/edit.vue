@@ -45,7 +45,7 @@
 
     <div class="mb-4">
       <WYSIWYG @update="updateEditor" :content="article.editor"/>
-      <Field name="Editor" v-model="veditor" v-slot="{field, errors, errorMessage}">
+      <Field name="editor" v-model="veditor" v-slot="{field, errors, errorMessage}">
         <input
           type="hidden"
           id="veditor"
@@ -109,9 +109,11 @@
 
     <v-btn
       type="submit"
-      variant="tonal"
+      variant="outlined"
+      :disabled="loading"
+      :loading="loading"
     >
-      Throw it on the pile amigo
+      Quality changes, send em in buddy boo
     </v-btn>
 
   </Form>
@@ -140,7 +142,11 @@
   });
 
   function onSubmit(values, { resetForm }) {
-
+    loading.value=true;
+    articleStore.updateArticle(route.params.id, values)
+    .finally(()=>{
+      loading.value=false;
+    })
   }
 
   function updateEditor(value) {
@@ -150,6 +156,7 @@
   articleStore.getArticleById(route.params.id)
   .then((response)=>{
     article.value = { ...article.value, ...response};
+    updateEditor(response.editor)
     loading.value = false;
   })
   .catch((error)=>{
