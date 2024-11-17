@@ -14,7 +14,7 @@ const ArticleSchema = {
   editor: yup.string()
     .required('What is this game though')
     .min(50, 'That can\'t possibly be all there is')
-    .max(500, 'You\'re blabbering, try to kep it concise'),
+    .max(800, 'You\'re blabbering, try to keep it concise'),
   rating: yup.number()
     .required('Rate it as well please')
     .notOneOf(['Select a rating'], 'You have to pick one of the ratings I\'m offering you'),
