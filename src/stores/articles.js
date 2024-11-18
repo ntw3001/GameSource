@@ -63,6 +63,20 @@ export const useArticleStore = defineStore ('article', {
       } catch (error){
         throw new Error(error)
       }
+    },
+    async adminGetArticles(docLimit){
+      try{
+        const q = query(articlesCol, orderBy('timestamp', 'desc'), limit(docLimit));
+        const querySnapshot = await getDocs(q);
+
+        const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        const articles = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+
+        this.adminArticles = articles;
+        this.adminLastVisible = lastVisible;
+      } catch (error){
+        throw new Error(error)
+      }
     }
   }
 
