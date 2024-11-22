@@ -44,28 +44,49 @@
         </tr>
       </tbody>
     </v-table>
+
+    <div>
+      <div class="text-center m-3" v-if="btnLoad">
+        <v-progress-circular indeterminate color="primary"/>
+      </div>
+      <v-btn
+        v-else
+        @click="loadMoreHandler"
+        color="primary"
+        block
+      >
+        ANOTHER
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script setup>
 
-import { ref }  from 'vue'
+  import { ref }  from 'vue'
 
-import { useArticleStore } from '@/stores/articles'
-import { useRoute, useRouter } from 'vue-router'
-const articleStore = useArticleStore()
-// import { useRouter } from 'vue-router'
+  import { useArticleStore } from '@/stores/articles'
+  import { useRoute, useRouter } from 'vue-router'
+  const articleStore = useArticleStore()
 
-const loading = ref(false)
-const btnLoad = ref(false)
-const router = useRouter()
-const route = useRoute()
+  const loading = ref(false)
+  const btnLoad = ref(false)
+  const router = useRouter()
+  const route = useRoute()
 
-if(!articleStore.adminArticles || route.query.reload){
-  loading.value;
-  articleStore.adminGetArticles(3)
-  .finally(() => {
-    loading.value = false
-  })
-}
+  const loadMoreHandler = () => {
+    btnLoad.value = true;
+    articleStore.adminGetMoreArticles(1)
+    .finally(() => {
+      btnLoad.value = false
+    })
+  }
+
+  if(!articleStore.adminArticles || route.query.reload){
+    loading.value = true;
+    articleStore.adminGetArticles(3)
+    .finally(() => {
+      loading.value = false
+    })
+  }
 </script>
