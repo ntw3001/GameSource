@@ -30,7 +30,7 @@ export const useArticleStore = defineStore ('article', {
         $toast.success('Oh my god what have you done')
         return true;
       } catch (error){
-        $toast.success(error.message)
+        $toast.error(error.message)
         throw new Error(error)
       }
     },
@@ -96,6 +96,19 @@ export const useArticleStore = defineStore ('article', {
 
 
       } catch(error) {
+        throw new Error(error)
+      }
+    },
+    async removeById(articleID){
+      try {
+        await deleteDoc(doc(db, 'articles', articleID));
+        const newList = this.adminArticles.filter(x=>{
+          return x.id !== articleID
+        });
+        this.adminArticles = newList;
+        $toast.success('Bet it was a rubbish article anyway')
+      } catch (error){
+        $toast.error(error.message)
         throw new Error(error)
       }
     }

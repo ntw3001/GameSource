@@ -36,6 +36,7 @@
               variant="outlined"
               size="small"
               color="red"
+              @click="removeHandler(article.id)"
             >
               Deiete
             </v-btn>
@@ -79,6 +80,14 @@
     articleStore.adminGetMoreArticles(1)
     .finally(() => {
       btnLoad.value = false
+    })
+  }
+
+  const removeHandler = (articleID) => {
+    loading.value= true;
+    articleStore.removeById(articleID)
+    .finally(() => {
+      loading.value = false
     })
   }
 
