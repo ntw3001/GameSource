@@ -12,7 +12,7 @@ let articlesCol = collection(db, 'articles');
 
 export const useArticleStore = defineStore ('article', {
   state:()=>({
-    homeArticles: '',
+    homeArticles: [],
     adminArticles: '',
     adminLastVisible: '',
   }),
@@ -23,6 +23,16 @@ export const useArticleStore = defineStore ('article', {
     }
   },
   actions: {
+    async getArticles(docLimit){
+      try{
+        const q = query(articlesCol, orderBy('timestamp', 'desc'), limit(docLimit));
+        const querySnapshot = await getDocs(q);
+        const articles = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        this.homeArticles = articles;
+      } catch (error){
+        throw new Error(error)
+      }
+    },
     async updateArticle(id, formData){
       try {
         const docRef = doc(db, 'articles', id)
