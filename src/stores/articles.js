@@ -20,6 +20,9 @@ export const useArticleStore = defineStore ('article', {
     getUserData() {
       const userStore = useUserStore();
       return userStore.user
+    },
+    getFeaturedSlides(state) {
+      return state.homeArticles.slice(0, 3)
     }
   },
   actions: {
