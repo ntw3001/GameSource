@@ -9,11 +9,13 @@ import AdminAddArticle from '@/components/user/dashboard/admin/add.vue'
 import AdminEditArticle from '@/components/user/dashboard/admin/edit.vue'
 import { isAuth, isLoggedIn } from '@/composables/auth'
 import NotFound from '@/components/404.vue'
+import Article from '@/components/articles/article.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     { path: '/', name: 'home', component: Home },
+    { path: '/article/:id', name:'article', component: Article },
     { path:'/:notFound(.*)', component: NotFound, name: '404' },
     { path: '/signin', name: 'signin', component: Signin, beforeEnter:isLoggedIn },
     { path: '/user/dashboard', component: Dashboard, beforeEnter:isAuth, children: [

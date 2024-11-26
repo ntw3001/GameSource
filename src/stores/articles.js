@@ -23,6 +23,9 @@ export const useArticleStore = defineStore ('article', {
     },
     getFeaturedSlides(state) {
       return state.homeArticles.slice(0, 3)
+    },
+    getHomeArticles(state){
+      return state.homeArticles
     }
   },
   actions: {

@@ -3,7 +3,7 @@
     <carousel
       :items-to-show="1"
       :wrap-around="true"
-      :height="600"
+      :height="600"d
       class="p_top"
     >
       <slide v-for="slide in articleStore.getFeaturedSlides" :key="slide.id">

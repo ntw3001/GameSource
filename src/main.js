@@ -18,6 +18,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
+import { VueMasonryPlugin } from 'vue-masonry'
 
 const vuetify = createVuetify({
   components,
@@ -36,6 +37,7 @@ onAuthStateChanged(AUTH, ()=> {
       .use(router)
       .use(vuetify)
       .use(ToastPlugin)
+      .use(VueMasonryPlugin)
       .mount('#app')
   }
 })
