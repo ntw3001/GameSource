@@ -2,9 +2,12 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 
 import { AUTH, db } from '@/utils/firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { getDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
 import errorCodes from '@/utils/fbcodes'
+
+import { useToast } from 'vue-toast-notification'
+const $toast = useToast()
 
 const default_user = {
   uid: null,
@@ -21,12 +24,33 @@ export const useUserStore = defineStore('user',{
     auth: false
   }),
 
-  getters: {},
+  getters: {
+    getUserData(state) {
+    return state.user
+    },
+    getUserId(state) {
+      return state.user.uid
+    }
+  },
 
   actions: {
     setUser(user){
       this.user = {...this.user, ...user},
       this.auth = true
+    },
+
+    async updateProfile(formData){
+      try{
+        console.log("doing it")
+        const userRef = doc(db, 'users', this.getUserId)
+        await updateDoc(userRef, { ...formData })
+        this.setUser(formData)
+        $toast.success('Nice name, better than old name')
+      } catch(error){
+        $toast.error(error.message)
+      } finally {
+        this.loading = false
+      }
     },
 
     async signOut(){

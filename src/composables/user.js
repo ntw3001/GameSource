@@ -19,17 +19,15 @@ export const updateProfile = () => {
       .max(50, 'No that\'s too much')
   });
 
-  function onSubmit(value, {resetForm}) {
-    console.log(value);
-    // loading.value = true;
-    // userStore.updateProfile({
-    //   firstName: firstName.value,
-    //   lastName: lastName.value
-    // }).then(() => {
-    //   loading.value = false;
-    // }).catch(() => {
-    //   loading.value = false;
-    // });
+  function onSubmit(values, {resetForm}) {
+    console.log("doing it")
+    loading.value = true;
+    userStore.updateProfile(values)
+    .finally(() => {
+      loading.value = false;
+    }).catch(() => {
+      loading.value = false;
+    });
   }
 
   return {

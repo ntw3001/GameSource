@@ -27,13 +27,13 @@
           {{ article.excerpt }}
         </v-card-text>
 
-        <v-card-action>
+        <v-card-actions>
           <router-link :to="{name:'article', params:{id:article.id}}">
             <v-btn>
               look the artipule
             </v-btn>
           </router-link>
-        </v-card-action>
+        </v-card-actions>
 
       </v-card>
     </v-col>

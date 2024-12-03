@@ -5,7 +5,7 @@
       <v-progress-circular indeterminate color="primary"/>
     </div>
 
-    <Form @submit="onSubmit" :validation-schema="formSchema">
+    <Form @submit="onSubmit" :validation-schema="formSchema" v-show="!userStore.loading">
       <h1 v-text="!type ? 'Sign in' : 'Register'"></h1>
 
       <div class="form-group">
