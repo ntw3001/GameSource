@@ -6,21 +6,20 @@ import { connectFirestoreEmulator } from 'firebase/firestore';
 
 export const updateProfile = () => {
   const userStore = useUserStore();
-  const firstName = ref(userStore.user.firstname);
-  const lastName = ref(userStore.user.lastname);
+  const firstname = ref(userStore.user.firstname);
+  const lastname = ref(userStore.user.lastname);
 
   const loading = ref(false);
   const formSchema = yup.object().shape({
-    firstName: yup.string()
+    firstname: yup.string()
       .required('No profile until you tell me your name')
       .max(50, 'No that\'s too much'),
-    lastName: yup.string()
+    lastname: yup.string()
       .required('NO PROFILE UNTIL YOU TELL ME YOUR NAME')
       .max(50, 'No that\'s too much')
   });
 
   function onSubmit(values, {resetForm}) {
-    console.log("doing it")
     loading.value = true;
     userStore.updateProfile(values)
     .finally(() => {
@@ -31,8 +30,8 @@ export const updateProfile = () => {
   }
 
   return {
-    firstName,
-    lastName,
+    firstname,
+    lastname,
     loading,
     formSchema,
     onSubmit

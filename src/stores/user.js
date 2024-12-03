@@ -26,7 +26,7 @@ export const useUserStore = defineStore('user',{
 
   getters: {
     getUserData(state) {
-    return state.user
+      return state.user
     },
     getUserId(state) {
       return state.user.uid
@@ -34,18 +34,20 @@ export const useUserStore = defineStore('user',{
   },
 
   actions: {
+
     setUser(user){
       this.user = {...this.user, ...user},
       this.auth = true
     },
 
     async updateProfile(formData){
+      console.log("doing it")
       try{
-        console.log("doing it")
         const userRef = doc(db, 'users', this.getUserId)
         await updateDoc(userRef, { ...formData })
         this.setUser(formData)
         $toast.success('Nice name, better than old name')
+        return true
       } catch(error){
         $toast.error(error.message)
       } finally {
